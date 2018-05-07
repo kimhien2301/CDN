@@ -8,7 +8,7 @@ import (
 
 type CacheStorage struct {
 	//spectrumCache    *modifiedlru.CacheStorage
-	spectrumCache    *lfu.CacheStorage //
+	spectrumCache    *lfu.CacheStorage // add
 	mlruCache        *modifiedlru.CacheStorage
 	serverSpectrum   uint64
 	contentSpectrums []uint64
@@ -67,23 +67,31 @@ func matchWithServerColor(contentTag []uint64, serverSpectrum uint64) bool {
 }
 
 func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
+	// fmt.Println(key)
+	// fmt.Println(cache.spectrumTags[key.(int)])
 	var hasTag = true
 	if len(cache.spectrumTags[key.(int)]) == 0 {
 		hasTag = false
 	}
 	if hasTag && matchWithServerColor(cache.spectrumTags[key.(int)], cache.serverSpectrum) {
+		// fmt.Println("Spectrum Caches 1")
 		if cache.spectrumCache.Len() >= cache.spectrumCache.Capacity() {
 			spectrumCacheList := cache.spectrumCache.CacheList()
+			// fmt.Println("spectrumCacheList")
+			// fmt.Println(spectrumCacheList)
 			for _, spectrumCacheListKey := range spectrumCacheList {
 				if !matchWithServerColor(cache.spectrumTags[spectrumCacheListKey.(int)], cache.serverSpectrum) {
+					// fmt.Println("EvictWithKey")
 					cache.spectrumCache.EvictWithKey(spectrumCacheListKey)
 					break
 				}
 			}
 		}
 		cache.spectrumCache.Insert(key, value)
+		// fmt.Println(:Hybrid Caches 2")
 		return value
 	} else {
+		// fmt.Println("lru Caches 1")
 		cache.mlruCache.Insert(key, value)
 		return value
 	}

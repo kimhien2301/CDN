@@ -30,6 +30,10 @@ type SpectrumManager interface {
 	SetContentSpectrums([]int)
 }
 
+type SeparatorRanks interface {
+	GetSeparatorRanks()
+}
+
 type ServerModel interface {
 	Storage() cache.Storage
 	AcceptRequest(cache.ContentRequest) interface{}

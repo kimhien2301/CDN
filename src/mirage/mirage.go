@@ -43,6 +43,7 @@ func main() {
 			bestSeparatorRanks = network.SpectrumManager().BestReferenceRanks(mirageStore)
 			utils.DebugPrint(fmt.Sprintln(bestSeparatorRanks))
 		} else {
+			// load from mirage.dat
 			for _, best := range mirageStore.BestSeparatorRanks {
 				if network.MatchStoreData(best, bitSize) {
 					bestSeparatorRanks = best.Ranks
@@ -50,6 +51,7 @@ func main() {
 				}
 			}
 
+			// calculate separator ranks and store to mirage.dat
 			if bestSeparatorRanks == nil {
 				bestSeparatorRanks = make([]int, 4)
 				bestSeparatorRanks[len(bestSeparatorRanks)-1] = int(math.Min(float64(spectrumCapacity*4), float64(librarySize)))
@@ -74,88 +76,6 @@ func main() {
 
 		network.SpectrumManager().SetContentSpectrums(bestSeparatorRanks)
 	}
-
-	/*
-		// CUSTOM CODE
-
-		// make a map for easy access to the client variables by their upstream node IDs.
-		clients := make(map[string]graph.Client)
-		for _, client := range network.Clients() {
-			clients[client.Upstream().ID()] = client
-		}
-
-		// read log file
-		fileHandle, _ := os.Open("data.txt")
-		defer fileHandle.Close()
-		fileScanner := bufio.NewScanner(fileHandle)
-
-		var data, sumData []int
-		totalID, totalCount := 0, 0
-
-		for fileScanner.Scan() {
-			s := strings.Split(fileScanner.Text(), ",")
-			count, _ := strconv.Atoi(s[1])
-			totalCount += count
-			data = append(data, count)
-			sumData = append(sumData, totalCount)
-			totalID++
-		}
-
-		fmt.Printf("Total ID: %d\nTotal count: %d\n", totalID, totalCount)
-		// fmt.Println(data)
-		// fmt.Println(sumData)
-		// fmt.Println(clients)
-		// fmt.Println(network.Clients())
-
-		// generate requests for warming up
-		for index := 0; index < warmupRequestCount; index++ {
-			utils.DebugPrint(fmt.Sprintf("\rwarming up: (%d/%d)", index+1, warmupRequestCount))
-			for node := 1; node <= len(clients); node++ {
-				randNum := rand.Intn(totalCount-1) + 1
-				for id := 0; id < totalID; id++ {
-					if randNum > sumData[id] {
-						continue
-					}
-					clients[fmt.Sprintf("node%d", node)].RequestByID(id)
-					break
-				}
-			}
-		}
-
-		utils.DebugPrint(fmt.Sprintln())
-		network.ResetCounters()
-
-		// generate requests
-		for index := 0; index < evaluationRequestCount; index++ {
-			utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+1, evaluationRequestCount))
-			for node := 1; node <= len(clients); node++ {
-				randNum := rand.Intn(totalCount-1) + 1
-				for id := 0; id < totalID; id++ {
-					if randNum > sumData[id] {
-						continue
-					}
-					clients[fmt.Sprintf("node%d", node)].RequestByID(id)
-					break
-				}
-			}
-		}
-
-		for index := 0; index < evaluationRequestCount; index++ {
-			utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+1, evaluationRequestCount))
-			for node := 1; node <= len(clients); node++ {
-				randNum := rand.Intn(totalCount-1) + 1
-				for id := 0; id < totalID; id++ {
-					if randNum > sumData[id] {
-						continue
-					}
-					clients[fmt.Sprintf("node%d", node)].RequestByID(id)
-					break
-				}
-			}
-		}
-
-		// END CUSTOM CODE
-	*/
 
 	// generate requests for warming up
 	for index := 0; index < warmupRequestCount; index++ {

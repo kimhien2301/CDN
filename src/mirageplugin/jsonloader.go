@@ -5,6 +5,7 @@ import (
 	"cache/eviction/arc"
 	"cache/eviction/fifo"
 	"cache/eviction/iclfu"
+	"cache/eviction/iris"
 	"cache/eviction/lfu"
 	"cache/eviction/lirs"
 	"cache/eviction/lru"
@@ -209,7 +210,18 @@ func loadModel(graphDecodeModel DecodeModel) *Graph_t {
 
 	if graphDecodeModel.Nodes[0].CacheAlgorithm == "iris" {
 		network.initSpectrums()
+		network.SpectrumManager().(*SpectrumManager_t).setServerSpectrums()
+
+		// set server spectrum to cache.go
+		for _, node := range network.cacheServers() {
+			node.Entity().(graph.ServerModel).Storage().(iris.Accessor).SetServerSpectrum(network.spectrumManager.serverSpectrums[node])
+		}
 	}
+
+	// add
+	// network.initSpectrums()
+	// network.SpectrumManager().(*SpectrumManager_t).setServerSpectrums()
+	// network.initSeparatorRanks()
 
 	return network
 }

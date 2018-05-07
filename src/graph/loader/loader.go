@@ -31,11 +31,26 @@ func LookupPlugin(filename string) (string, bool) {
 }
 
 func LoadGraph(config string) (graph.Graph, bool) {
+
+	// new
+	filename_t, exist_t := LookupPlugin("../bin/plugin.so")
 	filename, exist := LookupPlugin("plugin.so")
-	if !exist {
-		fmt.Println("Failed to find plugin: plugin.so")
+
+	if exist_t {
+		filename = filename_t
+	}
+
+	if !exist && !exist_t {
+		fmt.Println("Failed to find plugin: plugin.so of ../bin/plugin.so")
 		return nil, false
 	}
+
+	/*
+		if !exist {
+			fmt.Println("Failed to find plugin: plugin.so")
+			return nil, false
+		}
+	*/
 
 	p, err := plugin.Open(filename)
 	if err != nil {

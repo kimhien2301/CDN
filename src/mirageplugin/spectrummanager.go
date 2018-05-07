@@ -25,7 +25,7 @@ type SpectrumManager_t struct {
 
 func newSpectrumManager(bitSize int, network *Graph_t) *SpectrumManager_t {
 	manager := new(SpectrumManager_t)
-
+	// add
 	manager.network = network
 	manager.bitSize = bitSize
 	manager.serverSpectrums = make(map[*Node_t]uint64)

@@ -1,8 +1,6 @@
 package admission
 
-import (
-	"math/rand"
-)
+import "math/rand"
 
 type CacheStorage struct {
 	admissionList map[interface{}]bool

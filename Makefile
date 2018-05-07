@@ -29,7 +29,6 @@ run: $(SOURCEDIR)$(TARGET).go
 
 clean:
 	rm -f $(BINDIR)$(TARGET) $(BINDIR)plugin.so
-	rm -f bin/*
 	rm -f mirage.dat
 
 git-push: format
