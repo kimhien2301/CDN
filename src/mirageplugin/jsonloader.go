@@ -2,6 +2,7 @@ package main
 
 import (
 	"cache"
+	"cache/eviction/admission"
 	"cache/eviction/arc"
 	"cache/eviction/fifo"
 	"cache/eviction/iclfu"
@@ -123,14 +124,13 @@ func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
 		case "windowlfu":
 			storage = windowlfu.New(int(params["Capacity"]), int(params["Window"]))
 		case "lfu":
-			/*
-				admissionList := make([]interface{}, 0)
-				for rank := 0; rank < int(params["Capacity"]); rank++ {
-					admissionList = append(admissionList, rank)
-				}
-				storage = admission.New(admissionList)
-			*/
 			storage = lfu.New(int(params["Capacity"]))
+		case "admission":
+			admissionList := make([]interface{}, 0)
+			for rank := 0; rank < int(params["Capacity"]); rank++ {
+				admissionList = append(admissionList, rank)
+			}
+			storage = admission.New(admissionList)
 		case "iris":
 			storage = NewIrisCache(int(params["Capacity"]), params["SpectrumRatio"])
 		case "nocache":

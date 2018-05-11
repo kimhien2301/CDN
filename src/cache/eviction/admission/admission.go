@@ -1,6 +1,9 @@
 package admission
 
-import "math/rand"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type CacheStorage struct {
 	admissionList map[interface{}]bool
@@ -12,9 +15,15 @@ type CacheStorage struct {
 func New(admissionList []interface{}) *CacheStorage {
 	cache := new(CacheStorage)
 	cache.Init()
+
+	fmt.Println("Admission List")
+	fmt.Println(cache.admissionList)
+
 	for _, key := range admissionList {
 		cache.admissionList[key] = true
 	}
+	fmt.Println("Admission List")
+	fmt.Println(cache.admissionList)
 	return cache
 }
 
@@ -23,6 +32,8 @@ func (cache *CacheStorage) CacheList() []interface{} {
 	for key, _ := range cache.storage {
 		cacheList = append(cacheList, key)
 	}
+	// fmt.Println("Cache List")
+	// fmt.Println(cacheList)
 	return cacheList
 }
 
@@ -31,12 +42,17 @@ func (cache *CacheStorage) SetAdmissionList(admissionList []interface{}) {
 	for _, key := range admissionList {
 		cache.admissionList[key] = true
 	}
+	// fmt.Println(admissionList)
 }
 
 func (cache *CacheStorage) Init() {
 	cache.admissionList = make(map[interface{}]bool)
 	cache.storage = make(map[interface{}]interface{})
 	cache.ResetCount()
+	// fmt.Println("Admission List")
+	// fmt.Println(cache.admissionList)
+	// fmt.Println("Storage")
+	// fmt.Println(cache.storage)
 }
 
 func (cache *CacheStorage) Len() int {
