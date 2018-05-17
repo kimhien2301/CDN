@@ -15,7 +15,6 @@ import (
 	"cache/eviction/nocache"
 	"cache/eviction/random"
 	"cache/eviction/srrip"
-	"cache/eviction/wlfu"
 	"distribution"
 	"distribution/gamma"
 	"distribution/userdist"
