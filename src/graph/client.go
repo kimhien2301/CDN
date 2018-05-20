@@ -1,7 +1,9 @@
 package graph
 
-import "distribution"
-import "cache"
+import (
+	"cache"
+	"distribution"
+)
 
 type Client_t struct {
 	dist          distribution.Distribution
@@ -33,7 +35,7 @@ func (client *Client_t) RandomRequest() interface{} {
 		make([]interface{}, 0),
 		client.trafficWeight,
 	}
-
+	// fmt.Printf("Content request: %v\n", contentRequest.ContentKey)
 	return client.upstream.AcceptRequest(contentRequest)
 }
 
