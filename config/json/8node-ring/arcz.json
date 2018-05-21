@@ -6,14 +6,14 @@
     ],
     "OriginServer": { "Id": "origin", "LibrarySize": 1000 },
     "CacheServers": [
-	{ "Id": "node1", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node2", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node3", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node4", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node5", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node6", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node7", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node8", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] }
+	{ "Id": "node1", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node2", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node3", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node4", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node5", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node6", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node7", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node8", "CacheAlgorithm": "arcz", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] }
     ],
     "Links": [
 	{ "EdgeNodeIds": ["origin", "node1"], "Cost": 1.0, "Bidirectional": false },

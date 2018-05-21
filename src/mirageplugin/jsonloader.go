@@ -4,6 +4,8 @@ import (
 	"cache"
 	"cache/eviction/admission"
 	"cache/eviction/arc"
+	"cache/eviction/arcmlru"
+	"cache/eviction/arcz"
 	"cache/eviction/basiclru"
 	"cache/eviction/dbl"
 	"cache/eviction/fifo"
@@ -13,8 +15,6 @@ import (
 	"cache/eviction/lirs"
 	"cache/eviction/lru"
 	"cache/eviction/lruk"
-	"cache/eviction/modarc"
-	"cache/eviction/modifiedarc"
 	"cache/eviction/modifiedlru"
 	"cache/eviction/nocache"
 	"cache/eviction/random"
@@ -148,12 +148,12 @@ func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
 			storage = nocache.New(int(params["Capacity"]))
 		case "dbl":
 			storage = dbl.New(int(params["Capacity"]))
-		case "modifiedarc":
-			storage = modifiedarc.New(int(params["Capacity"]), int(params["k"]))
+		case "arcz":
+			storage = arcz.New(int(params["Capacity"]), int(params["k"]))
 		case "basiclru":
 			storage = basiclru.New(int(params["Capacity"]), int(params["Jump"]))
-		case "modarc":
-			storage = modarc.New(int(params["Capacity"]), int(params["Jump"]), nodeModel.ID)
+		case "arcmlru":
+			storage = arcmlru.New(int(params["Capacity"]), int(params["Jump"]), nodeModel.ID)
 		}
 		edgeServer.setStorage(storage)
 		edgeServer.setUpstreamRouter(g.router)

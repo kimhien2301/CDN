@@ -1,4 +1,4 @@
-package modifiedarc
+package arcz
 
 import (
 	"container/list"

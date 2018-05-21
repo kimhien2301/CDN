@@ -6,9 +6,9 @@
     ],
     "OriginServer": { "Id": "origin", "LibrarySize": 1000 },
     "CacheServers": [
-	{ "Id": "node1", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node2", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
-	{ "Id": "node3", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] }
+	{ "Id": "node1", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node2", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node3", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] }
     ],
     "Links": [
 	{ "EdgeNodeIds": ["node1",  "node2"], "Cost": 1.0 },

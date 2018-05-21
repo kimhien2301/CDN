@@ -139,7 +139,7 @@ func (cache *CacheStorage) PickElementInB2(key interface{}) *list.Element {
 
 func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
 	if cache.ExistInB1(key) {
-		cache.missCount++
+		// cache.missCount++
 		var delta int
 		if cache.b1.Len() >= cache.b2.Len() {
 			delta = 1

@@ -6,14 +6,14 @@
     ],
     "OriginServer": { "Id": "origin", "LibrarySize": 1000 },
     "CacheServers": [
-	{ "Id": "node1", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node2", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node3", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node4", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node5", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node6", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node7", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
-	{ "Id": "node8", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] }
+	{ "Id": "node1", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node2", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node3", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node4", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node5", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node6", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node7", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
+	{ "Id": "node8", "CacheAlgorithm": "arcmlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] }
     ],
     "Links": [
 	{ "EdgeNodeIds": ["origin", "node1"], "Cost": 1.0, "Bidirectional": false },
