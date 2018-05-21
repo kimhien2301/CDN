@@ -4,11 +4,8 @@ import (
 	"cache"
 	"cache/eviction/admission"
 	"cache/eviction/arc"
-<<<<<<< HEAD
-	"cache/eviction/dbl"
-=======
 	"cache/eviction/basiclru"
->>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
+	"cache/eviction/dbl"
 	"cache/eviction/fifo"
 	"cache/eviction/iclfu"
 	"cache/eviction/iris"
@@ -149,17 +146,14 @@ func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
 			storage = NewIrisCache(int(params["Capacity"]), params["SpectrumRatio"])
 		case "nocache":
 			storage = nocache.New(int(params["Capacity"]))
-<<<<<<< HEAD
 		case "dbl":
 			storage = dbl.New(int(params["Capacity"]))
-=======
 		case "modifiedarc":
 			storage = modifiedarc.New(int(params["Capacity"]), int(params["k"]))
 		case "basiclru":
 			storage = basiclru.New(int(params["Capacity"]), int(params["Jump"]))
 		case "modarc":
 			storage = modarc.New(int(params["Capacity"]), int(params["Jump"]), nodeModel.ID)
->>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
 		}
 		edgeServer.setStorage(storage)
 		edgeServer.setUpstreamRouter(g.router)

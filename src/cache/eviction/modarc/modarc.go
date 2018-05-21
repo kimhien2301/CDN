@@ -161,7 +161,33 @@ func (cache *CacheStorage) updatePosition(list *list.List, element *list.Element
 	}
 }
 
+func (cache *CacheStorage) pushElement(l *list.List, key, value interface{}) interface{} {
+	var element *list.Element
+	entry := Entry{key, value}
+	if cache.jump == 0 {
+		element = l.PushBack(entry)
+	} else {
+		mark := cache.t2.Back()
+		if mark != nil {
+			for index := 1; index < cache.jump; index++ {
+				if mark == nil {
+					break
+				}
+				mark = mark.Prev()
+			}
+		}
+
+		if mark == nil {
+			element = cache.t2.PushFront(entry)
+		} else {
+			element = cache.t2.InsertAfter(entry, mark)
+		}
+	}
+}
+
 func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
+	fmt.Println("INSERT")
+	fmt.Println("Cache server: ", cache.nodeID)
 	if cache.ExistInB1(key) {
 		cache.missCount++
 		var delta int
@@ -187,6 +213,12 @@ func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
 		cache.b2.Remove(cache.PickElementInB2(key))
 		cache.t2.PushFront(Entry{key, value})
 	} else if !cache.ExistInAny(key) {
+
+		fmt.Printf("Cache T1[%v] before:\n", cache.t1.Len())
+		for e := cache.t1.Front(); e != nil; e = e.Next() {
+			fmt.Printf("KEY[%v]: %v\n", e.Value.(Entry).key, e.Value.(Entry).value)
+		}
+
 		if cache.t1.Len()+cache.b1.Len() == cache.capacity {
 			if cache.t1.Len() < cache.capacity {
 				cache.b1.Remove(cache.b1.Back())
@@ -203,13 +235,20 @@ func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
 			}
 		}
 		cache.t1.PushFront(Entry{key, value})
+
+		fmt.Printf("Cache T1[%v] after:\n", cache.t1.Len())
+		for e := cache.t1.Front(); e != nil; e = e.Next() {
+			fmt.Printf("KEY[%v]: %v\n", e.Value.(Entry).key, e.Value.(Entry).value)
+		}
 	}
+	fmt.Println("--------------------")
 	return value
 }
 
 func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 	var element *list.Element
 	var entry Entry
+	fmt.Println("FETCH")
 	fmt.Println("Cache server: ", cache.nodeID)
 	fmt.Printf("Request content: %v\n", key)
 	if cache.ExistInT1(key) {
@@ -277,7 +316,7 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 				break
 			}
 		}
-		entry = element.Value.(Entry)
+		// entry = element.Value.(Entry)
 		// cache.t2.MoveToFront(element)
 		cache.updatePosition(cache.t2, element)
 
@@ -289,7 +328,7 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 		return element.Value.(Entry).value
 		// return entry.value
 	}
-	fmt.Printf("MISS\n\n")
+	fmt.Println("MISS")
 	fmt.Println("--------------------")
 	cache.missCount++
 	return nil
