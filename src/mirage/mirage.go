@@ -80,6 +80,7 @@ func main() {
 	// generate requests for warming up
 	for index := 0; index < warmupRequestCount; index++ {
 		utils.DebugPrint(fmt.Sprintf("\rwarming up: (%d/%d)", index+1, warmupRequestCount))
+		// fmt.Printf("warming up: (%d/%d)\n", index+1, warmupRequestCount)
 		for _, client := range network.Clients() {
 			client.RandomRequest()
 		}
@@ -91,6 +92,7 @@ func main() {
 	// generate requests
 	for index := 0; index < evaluationRequestCount; index++ {
 		utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+1, evaluationRequestCount))
+		// fmt.Printf("evaluation: (%d/%d)\n", index+1, evaluationRequestCount)
 		for _, client := range network.Clients() {
 			client.RandomRequest()
 		}
@@ -116,7 +118,14 @@ func main() {
 		utils.DebugPrint(fmt.Sprintln(" - internal_traffic:", internalTraffic))
 		utils.DebugPrint(fmt.Sprintln(" - origin_traffic:  ", originTraffic))
 		utils.DebugPrint(fmt.Sprintln("--"))
-
+		/*
+			fmt.Println("--")
+			fmt.Println("request_count: ", evaluationRequestCount*len(network.Clients()))
+			fmt.Println("total_traffic: ", totalTraffic)
+			fmt.Println(" - internal_traffic:", internalTraffic)
+			fmt.Println(" - origin_traffic:  ", originTraffic)
+			fmt.Println("--")
+		*/
 		network.PlainReport()
 	case "json":
 		network.JsonReport()

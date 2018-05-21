@@ -1,0 +1,28 @@
+warming up: (5000/5000)
+evaluation: (1000/1000)
+--
+request_count:  8000
+total_traffic:  7990
+ - internal_traffic: 6752
+ - origin_traffic:   1238
+--
+Nodes:
+  [  0]	origin	(access:  1238,	hit:  1238,	hit rate: 100.0%)
+  [  1]	node1	(access:  2167,	hit:   929,	hit rate:  42.9%)
+  [  2]	node2	(access:  2245,	hit:  1078,	hit rate:  48.0%)
+  [  3]	node3	(access:  2377,	hit:  1132,	hit rate:  47.6%)
+  [  4]	node4	(access:  2090,	hit:   713,	hit rate:  34.1%)
+  [  5]	node5	(access:  1847,	hit:   757,	hit rate:  41.0%)
+  [  6]	node6	(access:  1662,	hit:   815,	hit rate:  49.0%)
+  [  7]	node7	(access:  1364,	hit:   702,	hit rate:  51.5%)
+  [  8]	node8	(access:  1000,	hit:   636,	hit rate:  63.6%)
+Links:
+  [  0]	origin -> node1,	traffic:1238.0
+  [  1]	node1 -> node2,	traffic:1167.0
+  [  2]	node2 -> node3,	traffic:1245.0
+  [  3]	node3 -> node4,	traffic:1377.0
+  [  4]	node4 -> node5,	traffic:1090.0
+  [  5]	node5 -> node6,	traffic: 847.0
+  [  6]	node6 -> node7,	traffic: 662.0
+  [  7]	node7 -> node8,	traffic: 364.0
+  [  8]	node8 -> node1,	traffic:   0.0

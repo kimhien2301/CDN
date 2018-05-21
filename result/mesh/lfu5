@@ -1,0 +1,115 @@
+warming up: (5000/5000)
+evaluation: (1000/1000)
+--
+request_count:  24000
+total_traffic:  16358
+ - internal_traffic: 10613
+ - origin_traffic:   5745
+--
+Nodes:
+  [  0]	origin	(access:  5745,	hit:  5745,	hit rate: 100.0%)
+  [  1]	node1	(access:  1000,	hit:   679,	hit rate:  67.9%)
+  [  2]	node2	(access:  1321,	hit:   707,	hit rate:  53.5%)
+  [  3]	node3	(access:  2208,	hit:   875,	hit rate:  39.6%)
+  [  4]	node4	(access:  1300,	hit:   706,	hit rate:  54.3%)
+  [  5]	node5	(access:  1000,	hit:   700,	hit rate:  70.0%)
+  [  6]	node6	(access:  1000,	hit:   664,	hit rate:  66.4%)
+  [  7]	node7	(access:  1336,	hit:   771,	hit rate:  57.7%)
+  [  8]	node8	(access:  3480,	hit:  1222,	hit rate:  35.1%)
+  [  9]	node9	(access:  1315,	hit:   733,	hit rate:  55.7%)
+  [ 10]	node10	(access:  1000,	hit:   685,	hit rate:  68.5%)
+  [ 11]	node11	(access:  1573,	hit:   778,	hit rate:  49.5%)
+  [ 12]	node12	(access:  2414,	hit:   911,	hit rate:  37.7%)
+  [ 13]	node13	(access:  2407,	hit:  1019,	hit rate:  42.3%)
+  [ 14]	node14	(access:  1581,	hit:   758,	hit rate:  47.9%)
+  [ 15]	node15	(access:  1341,	hit:   760,	hit rate:  56.7%)
+  [ 16]	node16	(access:  1322,	hit:   738,	hit rate:  55.8%)
+  [ 17]	node17	(access:  1364,	hit:   768,	hit rate:  56.3%)
+  [ 18]	node18	(access:  1342,	hit:   723,	hit rate:  53.9%)
+  [ 19]	node19	(access:  1309,	hit:   736,	hit rate:  56.2%)
+  [ 20]	node20	(access:  1000,	hit:   691,	hit rate:  69.1%)
+  [ 21]	node21	(access:  1000,	hit:   658,	hit rate:  65.8%)
+  [ 22]	node22	(access:  1000,	hit:   636,	hit rate:  63.6%)
+  [ 23]	node23	(access:  1000,	hit:   678,	hit rate:  67.8%)
+  [ 24]	node24	(access:  1000,	hit:   659,	hit rate:  65.9%)
+Links:
+  [  0]	node1 -> node2,	traffic:   0.0
+  [  1]	node2 -> node1,	traffic: 321.0
+  [  2]	node1 -> node10,	traffic:   0.0
+  [  3]	node10 -> node1,	traffic:   0.0
+  [  4]	node2 -> node3,	traffic:   0.0
+  [  5]	node3 -> node2,	traffic: 614.0
+  [  6]	node2 -> node9,	traffic:   0.0
+  [  7]	node9 -> node2,	traffic:   0.0
+  [  8]	node3 -> node4,	traffic: 594.0
+  [  9]	node4 -> node3,	traffic:   0.0
+  [ 10]	node3 -> node8,	traffic:   0.0
+  [ 11]	node8 -> node3,	traffic:1333.0
+  [ 12]	node4 -> node5,	traffic: 300.0
+  [ 13]	node5 -> node4,	traffic:   0.0
+  [ 14]	node4 -> node7,	traffic:   0.0
+  [ 15]	node7 -> node4,	traffic:   0.0
+  [ 16]	node5 -> node6,	traffic:   0.0
+  [ 17]	node6 -> node5,	traffic:   0.0
+  [ 18]	node6 -> node7,	traffic:   0.0
+  [ 19]	node7 -> node6,	traffic: 336.0
+  [ 20]	node6 -> node14,	traffic:   0.0
+  [ 21]	node14 -> node6,	traffic:   0.0
+  [ 22]	node7 -> node8,	traffic:   0.0
+  [ 23]	node8 -> node7,	traffic: 565.0
+  [ 24]	node7 -> node13,	traffic:   0.0
+  [ 25]	node13 -> node7,	traffic:   0.0
+  [ 26]	node8 -> node9,	traffic: 582.0
+  [ 27]	node9 -> node8,	traffic:   0.0
+  [ 28]	node8 -> origin,	traffic:   0.0
+  [ 29]	origin -> node8,	traffic:2258.0
+  [ 30]	node9 -> node10,	traffic: 315.0
+  [ 31]	node10 -> node9,	traffic:   0.0
+  [ 32]	node9 -> node12,	traffic:   0.0
+  [ 33]	node12 -> node9,	traffic:   0.0
+  [ 34]	node10 -> node11,	traffic:   0.0
+  [ 35]	node11 -> node10,	traffic:   0.0
+  [ 36]	node11 -> node12,	traffic:   0.0
+  [ 37]	node12 -> node11,	traffic: 795.0
+  [ 38]	node11 -> node19,	traffic: 573.0
+  [ 39]	node19 -> node11,	traffic:   0.0
+  [ 40]	node12 -> origin,	traffic:   0.0
+  [ 41]	origin -> node12,	traffic:1503.0
+  [ 42]	node12 -> node18,	traffic: 619.0
+  [ 43]	node18 -> node12,	traffic:   0.0
+  [ 44]	origin -> node13,	traffic:1388.0
+  [ 45]	node13 -> origin,	traffic:   0.0
+  [ 46]	origin -> node17,	traffic: 596.0
+  [ 47]	node17 -> origin,	traffic:   0.0
+  [ 48]	node13 -> node14,	traffic: 823.0
+  [ 49]	node14 -> node13,	traffic:   0.0
+  [ 50]	node13 -> node16,	traffic: 584.0
+  [ 51]	node16 -> node13,	traffic:   0.0
+  [ 52]	node14 -> node15,	traffic: 581.0
+  [ 53]	node15 -> node14,	traffic:   0.0
+  [ 54]	node15 -> node16,	traffic:   0.0
+  [ 55]	node16 -> node15,	traffic:   0.0
+  [ 56]	node15 -> node24,	traffic: 341.0
+  [ 57]	node24 -> node15,	traffic:   0.0
+  [ 58]	node16 -> node17,	traffic:   0.0
+  [ 59]	node17 -> node16,	traffic:   0.0
+  [ 60]	node16 -> node23,	traffic: 322.0
+  [ 61]	node23 -> node16,	traffic:   0.0
+  [ 62]	node17 -> node18,	traffic:   0.0
+  [ 63]	node18 -> node17,	traffic:   0.0
+  [ 64]	node17 -> node22,	traffic: 364.0
+  [ 65]	node22 -> node17,	traffic:   0.0
+  [ 66]	node18 -> node19,	traffic:   0.0
+  [ 67]	node19 -> node18,	traffic:   0.0
+  [ 68]	node18 -> node21,	traffic: 342.0
+  [ 69]	node21 -> node18,	traffic:   0.0
+  [ 70]	node19 -> node20,	traffic: 309.0
+  [ 71]	node20 -> node19,	traffic:   0.0
+  [ 72]	node20 -> node21,	traffic:   0.0
+  [ 73]	node21 -> node20,	traffic:   0.0
+  [ 74]	node21 -> node22,	traffic:   0.0
+  [ 75]	node22 -> node21,	traffic:   0.0
+  [ 76]	node22 -> node23,	traffic:   0.0
+  [ 77]	node23 -> node22,	traffic:   0.0
+  [ 78]	node23 -> node24,	traffic:   0.0
+  [ 79]	node24 -> node23,	traffic:   0.0

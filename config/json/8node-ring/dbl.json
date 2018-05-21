@@ -6,14 +6,14 @@
     ],
     "OriginServer": { "Id": "origin", "LibrarySize": 1000 },
     "CacheServers": [
-	{ "Id": "node1", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node2", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node3", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node4", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node5", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node6", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node7", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] },
-	{ "Id": "node8", "CacheAlgorithm": "modifiedlru", "ParameterKeys": ["Capacity", "Jump"], "Parameters": [100, 5] }
+	{ "Id": "node1", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node2", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node3", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node4", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node5", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node6", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node7", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] },
+	{ "Id": "node8", "CacheAlgorithm": "dbl", "ParameterKeys": ["Capacity"], "Parameters": [100] }
     ],
     "Links": [
 	{ "EdgeNodeIds": ["origin", "node1"], "Cost": 1.0, "Bidirectional": false },

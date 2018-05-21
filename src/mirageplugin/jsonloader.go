@@ -4,6 +4,7 @@ import (
 	"cache"
 	"cache/eviction/admission"
 	"cache/eviction/arc"
+	"cache/eviction/dbl"
 	"cache/eviction/fifo"
 	"cache/eviction/iclfu"
 	"cache/eviction/iris"
@@ -126,15 +127,19 @@ func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
 		case "lfu":
 			storage = lfu.New(int(params["Capacity"]))
 		case "admission":
+			// fmt.Println("You are in admission")
 			admissionList := make([]interface{}, 0)
 			for rank := 0; rank < int(params["Capacity"]); rank++ {
 				admissionList = append(admissionList, rank)
 			}
+			// fmt.Printf("Admission list: %v\n", admissionList)
 			storage = admission.New(admissionList)
 		case "iris":
 			storage = NewIrisCache(int(params["Capacity"]), params["SpectrumRatio"])
 		case "nocache":
 			storage = nocache.New(int(params["Capacity"]))
+		case "dbl":
+			storage = dbl.New(int(params["Capacity"]))
 		}
 		edgeServer.setStorage(storage)
 		edgeServer.setUpstreamRouter(g.router)

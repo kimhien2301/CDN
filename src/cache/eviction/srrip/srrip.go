@@ -63,6 +63,7 @@ func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
 		for element := cache.storage.Front(); element != nil; element = element.Next() {
 			if element.Value.(Entry).rrpv == cache.rrpvMax {
 				element.Value = Entry{key, value, cache.rrpvMax - 1}
+				fmt.Printf("Insert key [%d] with value [%d] and RRVP = %d\n", key, value, cache.rrpvMax-1)
 				return value
 			}
 		}
@@ -76,16 +77,19 @@ func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
 func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 	if cache.Exist(key) {
 		cache.hitCount++
+		fmt.Println("HIT")
 		for element := cache.storage.Front(); element != nil; element = element.Next() {
 			if element.Value.(Entry).key == key {
 				entry := element.Value.(Entry)
 				entry.rrpv = 0
 				element.Value = entry
+				fmt.Printf("Entry after HIT: key [%d] with value [%d] and RRVP = %d\n", entry.key, entry.value, entry.rrpv)
 				return entry.value
 			}
 		}
 	}
 	cache.missCount++
+	fmt.Println("MISS")
 	return nil
 }
 

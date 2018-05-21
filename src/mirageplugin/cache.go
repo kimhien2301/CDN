@@ -7,16 +7,18 @@ import (
 )
 
 type CacheStorage struct {
-	//spectrumCache    *modifiedlru.CacheStorage
-	spectrumCache    *lfu.CacheStorage // add
-	mlruCache        *modifiedlru.CacheStorage
+	// spectrumCache    *modifiedlru.CacheStorage
+	spectrumCache *lfu.CacheStorage // add
+	mlruCache     *modifiedlru.CacheStorage
+	// arcCache         *arc.CacheStorage // add
 	serverSpectrum   uint64
 	contentSpectrums []uint64
 	spectrumCapacity int
 	mlruCapacity     int
-	hitCount         int
-	missCount        int
-	spectrumTags     map[int][]uint64
+	// arcCapacity      int // add
+	hitCount     int
+	missCount    int
+	spectrumTags map[int][]uint64
 }
 
 func NewIrisCache(capacity int, spectrumRatio float64) iris.Accessor {
@@ -25,8 +27,11 @@ func NewIrisCache(capacity int, spectrumRatio float64) iris.Accessor {
 	irisCache.missCount = 0
 	irisCache.spectrumCapacity = int(float64(capacity) * spectrumRatio)
 	irisCache.mlruCapacity = capacity - irisCache.spectrumCapacity
+	// irisCache.arcCapacity = capacity - irisCache.spectrumCapacity // add
 	irisCache.spectrumCache = lfu.New(irisCache.spectrumCapacity)
 	irisCache.mlruCache = modifiedlru.New(irisCache.mlruCapacity, 5) // jump = 5
+	// irisCache.arcCache = arc.New(irisCache.arcCapacity) // add
+	// fmt.Printf("Spectrum Capacity: %d\nModified LRU Capacity: %d\n", irisCache.spectrumCapacity, irisCache.mlruCapacity)
 	return irisCache
 }
 
@@ -51,10 +56,12 @@ func (cache *CacheStorage) SetServerSpectrum(spectrum uint64) {
 
 func (cache *CacheStorage) Len() int {
 	return cache.spectrumCache.Len() + cache.mlruCache.Len()
+	// return cache.spectrumCache.Len() + cache.arcCache.Len() // add
 }
 
 func (cache *CacheStorage) Exist(key interface{}) bool {
 	return cache.spectrumCache.Exist(key) || cache.mlruCache.Exist(key)
+	// return cache.spectrumCache.Exist(key) || cache.arcCache.Exist(key) // add
 }
 
 ////////////////////////////////////////////////////////////////
@@ -93,6 +100,7 @@ func (cache *CacheStorage) Insert(key, value interface{}) interface{} {
 	} else {
 		// fmt.Println("lru Caches 1")
 		cache.mlruCache.Insert(key, value)
+		// cache.arcCache.Insert(key, value) // add
 		return value
 	}
 	return nil
@@ -106,6 +114,7 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 	}
 
 	data = cache.mlruCache.Fetch(key)
+	// data = cache.arcCache.Fetch(key)
 	if data != nil {
 		cache.hitCount++
 		return data
@@ -123,6 +132,7 @@ func (cache *CacheStorage) SpectrumCapacity() int {
 
 func (cache *CacheStorage) Capacity() int {
 	return cache.spectrumCapacity + cache.mlruCapacity
+	// return cache.spectrumCapacity + cache.arcCapacity // add
 }
 
 func (cache *CacheStorage) HitCount() int {
@@ -142,4 +152,5 @@ func (cache *CacheStorage) Clear() {
 	cache.ResetCount()
 	cache.spectrumCache.Clear()
 	cache.mlruCache.Clear()
+	// cache.arcCache.Clear() // add
 }
