@@ -4,7 +4,11 @@ import (
 	"cache"
 	"cache/eviction/admission"
 	"cache/eviction/arc"
+<<<<<<< HEAD
 	"cache/eviction/dbl"
+=======
+	"cache/eviction/basiclru"
+>>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
 	"cache/eviction/fifo"
 	"cache/eviction/iclfu"
 	"cache/eviction/iris"
@@ -12,11 +16,13 @@ import (
 	"cache/eviction/lirs"
 	"cache/eviction/lru"
 	"cache/eviction/lruk"
+	"cache/eviction/modarc"
+	"cache/eviction/modifiedarc"
 	"cache/eviction/modifiedlru"
 	"cache/eviction/nocache"
 	"cache/eviction/random"
 	"cache/eviction/srrip"
-	"cache/eviction/wlfu"
+	"cache/eviction/windowlfu"
 	"distribution"
 	"distribution/gamma"
 	"distribution/userdist"
@@ -93,12 +99,17 @@ func (g *Graph_t) loadOriginServer(graphDecodeModel DecodeModel) {
 }
 
 func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
+
 	for _, nodeModel := range graphDecodeModel.Nodes {
 
 		params := make(map[string]float64)
 		for index, key := range nodeModel.ParameterKeys {
 			params[key] = nodeModel.Parameters[index]
+			// fmt.Printf("%v, ", nodeModel.Parameters[index])
 		}
+
+		// fmt.Printf("NODE ID: %v\n", nodeModel.ID)
+		// fmt.Println(params)
 
 		edgeServer := newServer(nodeModel.ID, false)
 
@@ -138,8 +149,17 @@ func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
 			storage = NewIrisCache(int(params["Capacity"]), params["SpectrumRatio"])
 		case "nocache":
 			storage = nocache.New(int(params["Capacity"]))
+<<<<<<< HEAD
 		case "dbl":
 			storage = dbl.New(int(params["Capacity"]))
+=======
+		case "modifiedarc":
+			storage = modifiedarc.New(int(params["Capacity"]), int(params["k"]))
+		case "basiclru":
+			storage = basiclru.New(int(params["Capacity"]), int(params["Jump"]))
+		case "modarc":
+			storage = modarc.New(int(params["Capacity"]), int(params["Jump"]), nodeModel.ID)
+>>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
 		}
 		edgeServer.setStorage(storage)
 		edgeServer.setUpstreamRouter(g.router)

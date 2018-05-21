@@ -1,0 +1,24 @@
+{
+    "NetworkId": "3node",
+    "RequestModels": [
+	{ "Id": "gamma", "Model": "gamma", "ParameterKeys": ["K", "Theta"], "Parameters": [0.475, 170.6067] },
+	{ "Id": "zipf", "Model": "zipf", "ParameterKeys": ["Skewness"], "Parameters": [0.679] }
+    ],
+    "OriginServer": { "Id": "origin", "LibrarySize": 1000 },
+    "CacheServers": [
+	{ "Id": "node1", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node2", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] },
+	{ "Id": "node3", "CacheAlgorithm": "modifiedarc", "ParameterKeys": ["Capacity", "k"], "Parameters": [100, 20] }
+    ],
+    "Links": [
+	{ "EdgeNodeIds": ["node1",  "node2"], "Cost": 1.0 },
+	{ "EdgeNodeIds": ["node2",  "node3"], "Cost": 1.0 },
+	{ "EdgeNodeIds": ["node3",  "node1"], "Cost": 1.0 },
+	{ "EdgeNodeIds": ["origin", "node1"], "Cost": 1.0 }
+    ],
+    "Clients": [
+	{ "RequestModelId": "gamma", "UpstreamId": "node1", "TrafficWeight": 1.0 },
+	{ "RequestModelId": "gamma", "UpstreamId": "node2", "TrafficWeight": 1.0 },
+	{ "RequestModelId": "gamma", "UpstreamId": "node3", "TrafficWeight": 1.0 }
+    ]
+}

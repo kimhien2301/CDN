@@ -2,6 +2,7 @@ warming up: (5000/5000)
 evaluation: (1000/1000)
 --
 request_count:  8000
+<<<<<<< HEAD
 total_traffic:  7623
  - internal_traffic: 6376
  - origin_traffic:   1247
@@ -25,4 +26,29 @@ Links:
   [  5]	node5 -> node6,	traffic: 805.0
   [  6]	node6 -> node7,	traffic: 612.0
   [  7]	node7 -> node8,	traffic: 339.0
+=======
+total_traffic:  7713
+ - internal_traffic: 6426
+ - origin_traffic:   1287
+--
+Nodes:
+  [  0]	origin	(access:  1287,	hit:  1287,	hit rate: 100.0%)
+  [  1]	node1	(access:  2181,	hit:   894,	hit rate:  41.0%)
+  [  2]	node2	(access:  2192,	hit:  1011,	hit rate:  46.1%)
+  [  3]	node3	(access:  2242,	hit:  1050,	hit rate:  46.8%)
+  [  4]	node4	(access:  2019,	hit:   777,	hit rate:  38.5%)
+  [  5]	node5	(access:  1775,	hit:   756,	hit rate:  42.6%)
+  [  6]	node6	(access:  1630,	hit:   855,	hit rate:  52.5%)
+  [  7]	node7	(access:  1387,	hit:   757,	hit rate:  54.6%)
+  [  8]	node8	(access:  1000,	hit:   613,	hit rate:  61.3%)
+Links:
+  [  0]	origin -> node1,	traffic:1287.0
+  [  1]	node1 -> node2,	traffic:1181.0
+  [  2]	node2 -> node3,	traffic:1192.0
+  [  3]	node3 -> node4,	traffic:1242.0
+  [  4]	node4 -> node5,	traffic:1019.0
+  [  5]	node5 -> node6,	traffic: 775.0
+  [  6]	node6 -> node7,	traffic: 630.0
+  [  7]	node7 -> node8,	traffic: 387.0
+>>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
   [  8]	node8 -> node1,	traffic:   0.0

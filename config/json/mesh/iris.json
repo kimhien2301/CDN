@@ -6,6 +6,7 @@
     ],
   "OriginServer": { "Id": "origin", "LibrarySize": 1000 },
   "CacheServers": [
+<<<<<<< HEAD
     { "Id": "node1", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.95] },
     { "Id": "node2", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.95] },
     { "Id": "node3", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.95] },
@@ -30,6 +31,32 @@
     { "Id": "node22", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.95] },
     { "Id": "node23", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.95] },
     { "Id": "node24", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.95] }
+=======
+    { "Id": "node1", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node2", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node3", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node4", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node5", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node6", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node7", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node8", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node9", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node10", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node11", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node12", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node13", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node14", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node15", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node16", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node17", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node18", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node19", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node20", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node21", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node22", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node23", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] },
+    { "Id": "node24", "CacheAlgorithm": "iris", "ParameterKeys": ["Capacity", "SpectrumRatio"], "Parameters": [100, 0.9] }
+>>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
   ],
   "Links": [
     { "EdgeNodeIds": ["node1", "node2"], "Cost": 1.0, "Bidirectional": true },

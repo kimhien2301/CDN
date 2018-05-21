@@ -36,7 +36,10 @@ func (client *Client_t) RandomRequest() interface{} {
 		client.trafficWeight,
 	}
 	// fmt.Printf("Content request: %v\n", contentRequest.ContentKey)
+<<<<<<< HEAD
 
+=======
+>>>>>>> bc15a09d87758ba70703936929f2ff3ba5933c7b
 	return client.upstream.AcceptRequest(contentRequest)
 }
 
