@@ -4,6 +4,7 @@ import (
 	"cache/eviction/iris"
 	"cache/eviction/lfu"
 	"cache/eviction/modifiedlru"
+	"fmt"
 )
 
 type CacheStorage struct {
@@ -110,6 +111,7 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 	data := cache.spectrumCache.Fetch(key)
 	if data != nil {
 		cache.hitCount++
+		fmt.Println("HIT")
 		return data
 	}
 
@@ -117,10 +119,12 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 	// data = cache.arcCache.Fetch(key)
 	if data != nil {
 		cache.hitCount++
+		fmt.Println("HIT")
 		return data
 	}
 
 	cache.missCount++
+	fmt.Println("MISS")
 	return nil
 }
 

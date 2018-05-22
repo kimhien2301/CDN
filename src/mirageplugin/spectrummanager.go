@@ -61,11 +61,56 @@ func (manager *SpectrumManager_t) separatorRanksID(separatorRanks []int) string 
 }
 
 func (manager *SpectrumManager_t) BestSeparatorRanks(separatorRanks []int) []int {
+	// N := manager.bitSize                                            // # colors
+	// C := manager.network.clients[0].Upstream().Storage().Capacity() // cache server capacity
+	// numUsrs := len(manager.network.clients)
+	// numServers := len(manager.network.nodes)
+	// numContents := manager.network.LibrarySize()
+
+	// // fmt.Printf("\nNum of Usrs: %v, Num of Servers: %v, Num of Contents: %v\n", numUsrs, numServers, numContents)
+
+	// S := make([]int, 4)
+	// S_prev := make([]int, 4)
+	// var S_tmp []int
+	// T_min := math.MaxFloat64
+
+	// //fmt.Println(reflect.TypeOf(T_min))
+
+	// S[N-1] = N * C
+	// fmt.Println("Calculate separator ranks:")
+	// fmt.Printf("First separator ranks: %v\n", S)
+	// start := time.Now()
+
+	// for isTwoArraysDiff(S, S_prev) {
+	// 	S_prev = getValues(S)
+	// 	for i := 0; i <= N-2; i++ {
+	// 		start_v := max(0, S[max(1, i)-1])
+	// 		end_v := min(S[i+1], N*C)
+	// 		fmt.Printf("v from %v to %v\n", start_v, end_v)
+	// 		for v := start_v; v <= end_v; v++ {
+	// 			S_tmp = getValues(S)
+	// 			S_tmp[i] = v
+	// 			S_tmp[N-1] = calculateTail(S_tmp, N, C)
+	// 			T_est := manager.estimate_traffic(S_tmp, numUsrs, numServers, numContents)
+	// 			if T_est < T_min {
+	// 				T_min = T_est
+	// 				S = getValues(S_tmp)
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// t := time.Now()
+	// elapsed := t.Sub(start)
+	// fmt.Printf("%s ", "Elapsed time(s): ")
+	// fmt.Println(elapsed)
+	// fmt.Println(S)
+	// return S
+
 	// return make([]int, 0)
 	return []int{36, 42, 54, 268}
 }
 
-func isTwoArrayDiff(a, b []int) bool {
+func isTwoArraysDiff(a, b []int) bool {
 	len := len(a)
 	for i := 0; i < len; i++ {
 		if a[i] != b[i] {
@@ -236,10 +281,10 @@ func (manager *SpectrumManager_t) setServerSpectrums() {
 		manager.serverSpectrums[verticesDegrees[i].node] = selectedColor
 	}
 
-	fmt.Println("\nServers' color")
-	for _, node := range manager.network.nodes {
-		fmt.Printf("%s %d\n", node.id, manager.serverSpectrums[node])
-	}
+	// fmt.Println("\nServers' color")
+	// for _, node := range manager.network.nodes {
+	// 	fmt.Printf("%s %d\n", node.id, manager.serverSpectrums[node])
+	// }
 }
 
 func (manager *SpectrumManager_t) inspectServerSpectrums() {

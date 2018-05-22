@@ -1,9 +1,11 @@
 package main
 
-import "graph"
-import "math/rand"
-import "utils"
-import "cache/eviction/iris"
+import (
+	"cache/eviction/iris"
+	"graph"
+	"math/rand"
+	"utils"
+)
 
 type Node_t struct {
 	id           string
@@ -254,4 +256,27 @@ func (g *Graph_t) CacheAlgorithm() string {
 
 func (g *Graph_t) SpectrumCapacity() int {
 	return g.cacheServers()[0].Entity().(graph.ServerModel).Storage().(iris.Accessor).SpectrumCapacity()
+}
+
+// ADD
+func (g *Graph_t) GetExpectTraffic() float64 {
+	return g.expectTrafficWithNoFillCaches().totalTraffic()
+}
+
+func (g *Graph_t) SetCacheServers(chromosome [][]int) {
+	for i, client := range g.clients {
+		cacheServer := client.Upstream().Storage()
+		cacheServer.Clear()
+		for j := 0; j < cacheServer.Capacity(); j++ {
+			cacheServer.Insert(chromosome[i][j], chromosome[i][j])
+		}
+	}
+}
+
+func (g *Graph_t) GetNumberOfCacheServers() int {
+	return len(g.clients)
+}
+
+func (g *Graph_t) GetCacheCapacity() int {
+	return g.clients[0].Upstream().Storage().Capacity()
 }

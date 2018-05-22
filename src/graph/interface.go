@@ -1,7 +1,10 @@
 package graph
 
-import "utils"
-import "cache"
+import (
+	"cache"
+	"distribution"
+	"utils"
+)
 
 type Graph interface {
 	PlainReport()
@@ -16,12 +19,22 @@ type Graph interface {
 	Links() []UnidirectionalLink
 	OriginServers() []Node
 	SpectrumCapacity() int
+
+	// ADD
+	GetExpectTraffic() float64
+	SetCacheServers(chromosome [][]int)
+	GetNumberOfCacheServers() int
+	GetCacheCapacity() int
+	GetCacheHitRate() float64
 }
 
 type Client interface {
 	RandomRequest() interface{}
 	RequestByID(int) interface{}
 	Upstream() ServerModel
+	// ADD
+	Dist() distribution.Distribution
+	RandomRequestForInsertNewContents() interface{}
 }
 
 type SpectrumManager interface {
@@ -30,6 +43,7 @@ type SpectrumManager interface {
 	SetContentSpectrums([]int)
 }
 
+// ADD
 type SeparatorRanks interface {
 	GetSeparatorRanks()
 }

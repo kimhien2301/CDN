@@ -6,6 +6,7 @@ type Library struct {
 }
 
 func NewLibrary(size int) *Library {
+	// fmt.Printf("New library[%v]\n", size)
 	library := new(Library)
 	library.size = size
 	return library
@@ -40,6 +41,7 @@ func (library *Library) Len() int {
 }
 
 func (library *Library) Exist(key interface{}) bool {
+	// fmt.Println("TRUE")
 	return true
 }
 
@@ -48,6 +50,7 @@ func (library *Library) Insert(key, value interface{}) interface{} {
 }
 
 func (library *Library) Fetch(key interface{}) interface{} {
+	// fmt.Println("HIT")
 	library.hit++
 	return key
 }

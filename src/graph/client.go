@@ -3,6 +3,7 @@ package graph
 import (
 	"cache"
 	"distribution"
+	"fmt"
 )
 
 type Client_t struct {
@@ -35,8 +36,22 @@ func (client *Client_t) RandomRequest() interface{} {
 		make([]interface{}, 0),
 		client.trafficWeight,
 	}
-	// fmt.Printf("Content request: %v\n", contentRequest.ContentKey)
+	fmt.Printf("Content request: %v.\n", contentRequest.ContentKey)
+	return client.upstream.AcceptRequest(contentRequest)
+}
 
+func (client *Client_t) RandomRequestForInsertNewContents() interface{} {
+	requestID := client.dist.Intn()
+	for requestID < 6 {
+		requestID = client.dist.Intn()
+	}
+
+	contentRequest := cache.ContentRequest{
+		requestID,
+		make([]interface{}, 0),
+		client.trafficWeight,
+	}
+	// fmt.Printf("Content request: %v.\n", contentRequest.ContentKey)
 	return client.upstream.AcceptRequest(contentRequest)
 }
 

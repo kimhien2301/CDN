@@ -70,3 +70,17 @@ func (g *Graph_t) JsonReport() {
 	jsonString, _ := json.Marshal(report)
 	utils.Print(fmt.Sprintln(string(jsonString)))
 }
+
+// ADD
+func (g *Graph_t) GetCacheHitRate() float64 {
+	// utils.Print(fmt.Sprintln("Nodes:"))
+	var hit, miss = 0, 0
+	for _, node := range g.nodes {
+		if node.ID() != "origin" {
+			hit += node.Entity().(*ServerModel_t).Storage().HitCount()
+			miss += node.Entity().(*ServerModel_t).Storage().MissCount()
+		}
+		// utils.Print(fmt.Sprintf("  [%3d]\t%s\t(access:%6d,\thit:%6d,\thit rate:%6.1f%%)\n", index, node.ID(), hit+miss, hit, float64(hit)/float64(hit+miss)*100.0))
+	}
+	return float64(hit) / float64(hit+miss)
+}

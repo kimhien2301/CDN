@@ -66,6 +66,73 @@ func (network *Graph_t) expectTraffic() *TrafficExpectation_t {
 	network.fillCaches()
 	expectation := newTrafficExpectation(network)
 
+	// Generate requests for all contents from each client
+	for _, client := range network.clients {
+		for contentRank := 1; contentRank <= network.originServers()[0].Entity().(*ServerModel_t).Storage().Len(); contentRank++ {
+			fromID := client.Upstream().ID()
+			// Set the amount of traffic generated in one transfer
+			unitTraffic := client.Dist().PDF(contentRank)
+			// Generate request
+			request := cache.ContentRequest{contentRank, make([]interface{}, 0), client.TrafficWeight()}
+			// If the server hits on the client immediately, the traffic volume = 0
+			if client.Upstream().Storage().Exist(request.ContentKey) {
+				continue
+			}
+
+			for {
+				// Update server that passed through
+				loopDetected := false
+				for _, nodeID := range request.XForwardedFor {
+					if nodeID == fromID {
+						loopDetected = true
+					}
+				}
+				request.XForwardedFor = append(request.XForwardedFor, fromID)
+
+				// Determine the next transfer destination (change the route control method by the cache algorithm）
+				if network.model.Nodes[0].CacheAlgorithm == "iris" && loopDetected == false && !parser.Options.UseShortestPath {
+					forwardEntry = network.router.selectForwardEntryBySpectrum(fromID, request)
+				} else {
+					forwardEntry = network.router.selectForwardEntry(fromID, request)
+				}
+
+				// Add traffic to the transfer link
+				expectation.Traffic[forwardEntry.Link()] += unitTraffic
+
+				// When the next node hits, routing control end
+				if forwardEntry.Node().Entity().(*ServerModel_t).Storage().Exist(request.ContentKey) {
+					break
+				}
+
+				// Make the request originator the next server and forward the request again
+				fromID = forwardEntry.Node().ID()
+			}
+		}
+	}
+
+	return expectation
+}
+
+func (network *Graph_t) fillCaches() {
+	switch network.model.Nodes[0].CacheAlgorithm {
+	case "iris":
+		// 	for _, node := range network.cacheServers() {
+		// 		node.Entity().(*ServerModel_t).Storage().(iris.Accessor).FillUp()
+		// 	}
+		for i := 0; i < 5000; i++ {
+			for _, client := range network.Clients() {
+				client.RandomRequest()
+			}
+		}
+	}
+}
+
+// ADD
+func (network *Graph_t) expectTrafficWithNoFillCaches() *TrafficExpectation_t {
+	var forwardEntry ForwardEntry
+	//network.fillCaches()
+	expectation := newTrafficExpectation(network)
+
 	// 各クライアントからすべてのコンテンツについてのリクエストを生成
 	for _, client := range network.clients {
 		for contentRank := 1; contentRank <= network.originServers()[0].Entity().(*ServerModel_t).Storage().Len(); contentRank++ {
@@ -111,20 +178,4 @@ func (network *Graph_t) expectTraffic() *TrafficExpectation_t {
 	}
 
 	return expectation
-}
-
-func (network *Graph_t) fillCaches() {
-	switch network.model.Nodes[0].CacheAlgorithm {
-	case "iris":
-		/*
-			for _, node := range network.cacheServers() {
-				node.Entity().(*ServerModel_t).Storage().(iris.Accessor).FillUp()
-			}
-		*/
-		for i := 0; i < 5000; i++ {
-			for _, client := range network.Clients() {
-				client.RandomRequest()
-			}
-		}
-	}
 }
