@@ -32,6 +32,7 @@ func ParseArgs() *OptionModel {
 	flag.StringVar(&Options.OutputFormat, "F", "plain", "set output format {json|plain}.")
 	flag.BoolVar(&Options.Quiet, "q", false, "suppress debug output.")
 	flag.BoolVar(&Options.UseReferenceRanks, "R", false, "use reference ranks instead of calculating sub-optimal separator ranks.")
+
 	flag.BoolVar(&Options.GA, "GA", false, "Using GA.")                          // add
 	flag.BoolVar(&Options.InsertNewContents, "I", false, "Insert new contents.") // add
 

@@ -95,7 +95,7 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 	// fmt.Printf("Content %v: %v\n", content, exist)
 	if exist {
 		cache.hitCount++
-		fmt.Println("HIT")
+		// fmt.Println("HIT")
 		// cache.cacheNum++
 		// if cache.cacheNum == 3 {
 		// 	cache.cacheNum = 0
@@ -103,7 +103,7 @@ func (cache *CacheStorage) Fetch(key interface{}) interface{} {
 		return content
 	}
 	cache.missCount++
-	fmt.Println("MISS")
+	// fmt.Println("MISS")
 	// cache.cacheNum++
 	// if cache.cacheNum == 3 {
 	// 	cache.cacheNum = 0

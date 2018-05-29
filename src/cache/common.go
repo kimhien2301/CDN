@@ -14,7 +14,8 @@ type Storage interface {
 }
 
 type ContentRequest struct {
-	ContentKey    interface{}
-	XForwardedFor []interface{}
-	TrafficWeight float64
+	ContentKey           interface{}
+	XForwardedFor        []interface{}
+	TrafficWeight        float64
+	TraversedServersList []string // ADD
 }

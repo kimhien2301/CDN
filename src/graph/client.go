@@ -25,6 +25,7 @@ func (client *Client_t) RequestByID(contentID int) interface{} {
 		contentID,
 		make([]interface{}, 0),
 		client.trafficWeight,
+		make([]string, 0), // ADD
 	}
 
 	return client.upstream.AcceptRequest(contentRequest)
@@ -35,8 +36,8 @@ func (client *Client_t) RandomRequest() interface{} {
 		client.dist.Intn(),
 		make([]interface{}, 0),
 		client.trafficWeight,
+		make([]string, 0), // ADD
 	}
-	fmt.Printf("Content request: %v.\n", contentRequest.ContentKey)
 	return client.upstream.AcceptRequest(contentRequest)
 }
 
@@ -46,10 +47,15 @@ func (client *Client_t) RandomRequestForInsertNewContents() interface{} {
 		requestID = client.dist.Intn()
 	}
 
+	if requestID < 5 {
+		fmt.Println("Error: why caching ID < 6")
+	}
+
 	contentRequest := cache.ContentRequest{
 		requestID,
 		make([]interface{}, 0),
 		client.trafficWeight,
+		make([]string, 0), // ADD
 	}
 	// fmt.Printf("Content request: %v.\n", contentRequest.ContentKey)
 	return client.upstream.AcceptRequest(contentRequest)

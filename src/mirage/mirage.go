@@ -38,7 +38,7 @@ func main() {
 
 		var bestSeparatorRanks []int
 		mirageStore := utils.LoadData("mirage.dat")
-		fmt.Printf("Mirage Store: %v\n", mirageStore)
+		// fmt.Printf("Mirage Store: %v\n", mirageStore)
 
 		if parser.Options.UseReferenceRanks {
 			utils.DebugPrint(fmt.Sprintln("deciding separator ranks from references..."))
@@ -79,17 +79,19 @@ func main() {
 	}
 
 	// fmt.Printf("Cache Algorithm: %v\n", network.CacheAlgorithm())
-
+	if !parser.Options.UseShortestPath {
+		fmt.Println("Color-based routing")
+	}
 	//---------- GA ----------//
-	parser.GA = parser.Options.GA
+	// parser.GA = parser.Options.GA
 	if parser.Options.GA {
-		fmt.Println("RUN GA")
+		fmt.Println("Genetic Algorithm")
 
 		totalContent := network.LibrarySize()
 		cacheCapacity := network.GetCacheCapacity()
 		numCacheServer := network.GetNumberOfCacheServers()
 		numChromosome := 100
-		generation := 100
+		generation := 5
 		mutanRate := float64(0.01)
 		parent := initializePopulation(network, totalContent, cacheCapacity, numChromosome, numCacheServer)
 		offspring := initializePopulation(network, totalContent, cacheCapacity, numChromosome, numCacheServer)
@@ -100,7 +102,6 @@ func main() {
 		offspringFitness = computeFitness(network, offspring)
 
 		var temp float64
-		fmt.Println(parser.Options)
 
 		start := time.Now()
 		for i := 0; i < generation; i++ {
@@ -155,20 +156,29 @@ func main() {
 
 		// genServerListOfContents(network, cacheCapacity, totalContent)
 	} else if parser.Options.InsertNewContents {
+		fmt.Println("Insert New Contents")
 		// fmt.Printf("%p \n", network)
 		// network2, _ := graphLoader.LoadGraph(parser.Options.GraphFilename)
 		// fmt.Printf("%p \n", network2)
 		//fmt.Println(network2.OriginServers()[0].Entity().(graph.ServerModel).Storage().CacheList())
 
+		network.SpectrumManager().SetContentWithTag(1, []uint64{0, 0, 0, 0})
+		network.SpectrumManager().SetContentWithTag(2, []uint64{0, 0, 0, 0})
+		network.SpectrumManager().SetContentWithTag(3, []uint64{0, 0, 0, 0})
+		network.SpectrumManager().SetContentWithTag(4, []uint64{0, 0, 0, 0})
+		network.SpectrumManager().SetContentWithTag(5, []uint64{0, 0, 0, 0})
+
+		// network.ViewCacheContents()
 		for index := 0; index < warmupRequestCount; index++ {
 			utils.DebugPrint(fmt.Sprintf("\rwarming up: (%d/%d)", index+1, warmupRequestCount))
 			for _, client := range network.Clients() {
 				client.RandomRequestForInsertNewContents()
 			}
 		}
+		// network.ViewCacheContents()
 
 		utils.DebugPrint(fmt.Sprintln())
-		network.ResetCounters()
+		// network.ResetCounters()
 
 		fmt.Println("Evaluation Phase")
 
@@ -179,50 +189,87 @@ func main() {
 		defer f.Close()
 		w := bufio.NewWriter(f)
 		defer w.Flush()
+
 		fmt.Fprintf(w, "Evaluation number cache hit rate\n")
 		fmt.Fprintf(w, "0,%5.3f\n", network.GetCacheHitRate())
 
 		for index := 0; index < 500; index++ {
 			utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+1, evaluationRequestCount))
+			network.ResetCounters()
 			for _, client := range network.Clients() {
 				client.RandomRequestForInsertNewContents()
 			}
 			fmt.Fprintf(w, "%d,%5.3f\n", index+1, network.GetCacheHitRate())
 		}
 		network.PlainReport()
-
+		// network.ViewCacheContents()
+		// A
 		for index := 0; index < 500; index++ {
 			utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+501, evaluationRequestCount))
+			network.ResetCounters()
 			for _, client := range network.Clients() {
 				client.RandomRequest()
 			}
 			fmt.Fprintf(w, "%d,%5.3f\n", index+501, network.GetCacheHitRate())
 		}
-		network.PlainReport()
-		utils.DebugPrint(fmt.Sprintln())
-		totalTraffic := 0.0
-		for _, link := range network.Links() {
-			totalTraffic += link.Traffic()
-		}
-		originTraffic := 0.0
-		for _, link := range network.OriginServers()[0].OutputLinks() {
-			originTraffic += link.Traffic()
-		}
-		internalTraffic := totalTraffic - originTraffic
 
-		utils.DebugPrint(fmt.Sprintln("--"))
-		utils.DebugPrint(fmt.Sprintln("request_count: ", evaluationRequestCount*len(network.Clients())))
-		utils.DebugPrint(fmt.Sprintln("total_traffic: ", totalTraffic))
-		utils.DebugPrint(fmt.Sprintln(" - internal_traffic:", internalTraffic))
-		utils.DebugPrint(fmt.Sprintln(" - origin_traffic:  ", originTraffic))
-		utils.DebugPrint(fmt.Sprintln("--"))
+		// network.ViewCacheContents()
+		// B
+		// Insert 5 new contents
+		// for index := 0; index < 5; index++ {
+		// 	utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+501, evaluationRequestCount))
+
+		// 	for _, client := range network.Clients() {
+		// 		client.RequestByID(index + 1)
+		// 	}
+
+		// 	fmt.Fprintf(w, "%d,%5.3f\n", index+501, network.GetCacheHitRate())
+
+		// }
+		// network.ViewCacheContents()
+		// for _, client := range network.Clients() {
+		// 	client.RequestByID(0 + 1)
+		// }
+		// for _, client := range network.Clients() {
+		// 	client.RequestByID(1 + 1)
+		// }
+		// network.PlainReport()
+		// for index := 5; index < 500; index++ {
+		// 	utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+501, evaluationRequestCount))
+		// 	// network.ResetCounters()
+		// 	for _, client := range network.Clients() {
+		// 		client.RandomRequest()
+		// 	}
+		// 	fmt.Fprintf(w, "%d,%5.3f\n", index+501, network.GetCacheHitRate())
+		// }
+
+		// network.PlainReport()
+
+		// utils.DebugPrint(fmt.Sprintln())
+
+		// totalTraffic := 0.0
+		// for _, link := range network.Links() {
+		// 	totalTraffic += link.Traffic()
+		// }
+		// originTraffic := 0.0
+		// for _, link := range network.OriginServers()[0].OutputLinks() {
+		// 	originTraffic += link.Traffic()
+		// }
+		// internalTraffic := totalTraffic - originTraffic
+
+		// utils.DebugPrint(fmt.Sprintln("--"))
+		// utils.DebugPrint(fmt.Sprintln("request_count: ", evaluationRequestCount*len(network.Clients())))
+		// utils.DebugPrint(fmt.Sprintln("total_traffic: ", totalTraffic))
+		// utils.DebugPrint(fmt.Sprintln(" - internal_traffic:", internalTraffic))
+		// utils.DebugPrint(fmt.Sprintln(" - origin_traffic:  ", originTraffic))
+		// utils.DebugPrint(fmt.Sprintln("--"))
 
 	} else {
 		// generate requests for warming up
 		for index := 0; index < warmupRequestCount; index++ {
 			utils.DebugPrint(fmt.Sprintf("\rwarming up: (%d/%d)", index+1, warmupRequestCount))
 			for _, client := range network.Clients() {
-				fmt.Println(client.Upstream().ID())
+				// fmt.Println(client.Upstream().ID())
 				client.RandomRequest()
 			}
 		}
@@ -234,10 +281,11 @@ func main() {
 		for index := 0; index < evaluationRequestCount; index++ {
 			utils.DebugPrint(fmt.Sprintf("\revaluation: (%d/%d)", index+1, evaluationRequestCount))
 			for _, client := range network.Clients() {
-				fmt.Println(client.Upstream().ID())
+				// fmt.Println(client.Upstream().ID())
 				client.RandomRequest()
 			}
 		}
+
 		utils.DebugPrint(fmt.Sprintln())
 
 		switch parser.Options.OutputFormat {

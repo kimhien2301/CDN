@@ -195,7 +195,7 @@ func loadDistributions(graphDecodeModel DecodeModel, librarySize int) map[string
 		case "zipf":
 			dists[requestModel.ID] = zipf.New(params["Skewness"], librarySize)
 		case "userdist":
-			dists[requestModel.ID] = userdist.New("id_count_full.csv")
+			dists[requestModel.ID] = userdist.New("id_count_full.csv") // ADD
 		}
 	}
 	return dists
@@ -235,6 +235,7 @@ func loadModel(graphDecodeModel DecodeModel) *Graph_t {
 		for _, node := range network.cacheServers() {
 			node.Entity().(graph.ServerModel).Storage().(iris.Accessor).SetServerSpectrum(network.spectrumManager.serverSpectrums[node])
 		}
+		network.spectrumManager.initSpectrumRoutingTable()
 	}
 
 	// add

@@ -36,27 +36,28 @@ func (server *ServerModel_t) setUpstreamRouter(router Router) {
 }
 
 func (server *ServerModel_t) AcceptRequest(request cache.ContentRequest) interface{} {
-	// fmt.Println("FETCH 1 ")
-	// fmt.Println(request.ContentKey)
 	cachedData := server.Storage().Fetch(request.ContentKey)
-	// fmt.Println("FETCH 2 ")
-	// fmt.Println(request.ContentKey)
 	if cachedData != nil {
 		return cachedData
 	}
 	request.XForwardedFor = append(request.XForwardedFor, server.id)
-	// fmt.Println("Insert 1 ")
-	// fmt.Println(request.ContentKey)
-	surrogateData := server.upstreamRouter.ForwardRequest(server.id, request)
-	// fmt.Println("Insert 2 ")
-	// fmt.Println(request.ContentKey)
+
+	var surrogateData interface{}
+
+	if server.upstreamRouter.(*Router_t).graph.model.Nodes[0].CacheAlgorithm == "iris" && !parser.Options.UseShortestPath {
+		// fmt.Println("No content")
+		// fmt.Println(request.ContentKey)
+		surrogateData = server.upstreamRouter.ForwardRequestForIris(server.id, request)
+		// fmt.Println("Content value")
+		// fmt.Println(surrogateData)
+	} else {
+		surrogateData = server.upstreamRouter.ForwardRequest(server.id, request)
+	}
+
 	if !parser.GA {
 		server.Storage().Insert(request.ContentKey, surrogateData)
 	}
-	// fmt.Println("Insert 3 ")
-	// fmt.Println(request.ContentKey)
 
-	// fmt.Println(parser.GA)
 	return surrogateData
 }
 

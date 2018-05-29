@@ -73,7 +73,7 @@ func (network *Graph_t) expectTraffic() *TrafficExpectation_t {
 			// Set the amount of traffic generated in one transfer
 			unitTraffic := client.Dist().PDF(contentRank)
 			// Generate request
-			request := cache.ContentRequest{contentRank, make([]interface{}, 0), client.TrafficWeight()}
+			request := cache.ContentRequest{contentRank, make([]interface{}, 0), client.TrafficWeight(), make([]string, 0)}
 			// If the server hits on the client immediately, the traffic volume = 0
 			if client.Upstream().Storage().Exist(request.ContentKey) {
 				continue
@@ -140,7 +140,7 @@ func (network *Graph_t) expectTrafficWithNoFillCaches() *TrafficExpectation_t {
 			// 1度の転送に発生する通信量を設定
 			unitTraffic := client.Dist().PDF(contentRank)
 			// リクエストを生成
-			request := cache.ContentRequest{contentRank, make([]interface{}, 0), client.TrafficWeight()}
+			request := cache.ContentRequest{contentRank, make([]interface{}, 0), client.TrafficWeight(), make([]string, 0)}
 			// クライアント直上のサーバでヒットしたら通信量=0
 			if client.Upstream().Storage().Exist(request.ContentKey) {
 				continue

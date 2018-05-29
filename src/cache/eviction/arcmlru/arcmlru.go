@@ -132,7 +132,7 @@ func (cache *CacheStorage) PickElementInB2(key interface{}) *list.Element {
 }
 
 func (cache *CacheStorage) updatePosition(list *list.List, element *list.Element) {
-	mark := element.Prev()
+	mark := element
 
 	for index := 1; index < cache.jump; index++ {
 		if mark == nil {
@@ -142,7 +142,7 @@ func (cache *CacheStorage) updatePosition(list *list.List, element *list.Element
 	}
 
 	if mark != nil {
-		list.MoveAfter(element, mark)
+		list.MoveBefore(element, mark)
 	} else {
 		list.MoveToFront(element)
 	}

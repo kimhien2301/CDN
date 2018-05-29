@@ -26,6 +26,9 @@ type Graph interface {
 	GetNumberOfCacheServers() int
 	GetCacheCapacity() int
 	GetCacheHitRate() float64
+	ViewCacheContents()
+	InspectRoutingTables()
+	InspectSpectrumRoutingTable()
 }
 
 type Client interface {
@@ -41,6 +44,7 @@ type SpectrumManager interface {
 	BestSeparatorRanks([]int) []int
 	BestReferenceRanks(utils.MirageStore) []int
 	SetContentSpectrums([]int)
+	SetContentWithTag(contentID int, tag []uint64)
 }
 
 // ADD

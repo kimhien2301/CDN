@@ -2,6 +2,7 @@ package main
 
 import (
 	"cache/eviction/iris"
+	"fmt"
 	"graph"
 	"math/rand"
 	"utils"
@@ -279,4 +280,19 @@ func (g *Graph_t) GetNumberOfCacheServers() int {
 
 func (g *Graph_t) GetCacheCapacity() int {
 	return g.clients[0].Upstream().Storage().Capacity()
+}
+
+func (g *Graph_t) ViewCacheContents() {
+	for _, client := range g.clients {
+		fmt.Printf("Server %s\n", client.Upstream().ID())
+		fmt.Println(client.Upstream().Storage().CacheList())
+	}
+}
+
+func (g *Graph_t) InspectRoutingTables() {
+	g.router.inspectAllRoutingTables()
+}
+
+func (g *Graph_t) InspectSpectrumRoutingTable() {
+	g.spectrumManager.inspectSpectrumRoutingTable()
 }
