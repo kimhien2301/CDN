@@ -37,7 +37,7 @@ type Client interface {
 	Upstream() ServerModel
 	// ADD
 	Dist() distribution.Distribution
-	RandomRequestForInsertNewContents() interface{}
+	RandomRequestForInsertNewContents(int) interface{}
 }
 
 type SpectrumManager interface {

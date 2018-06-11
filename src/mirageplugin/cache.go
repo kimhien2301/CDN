@@ -2,13 +2,13 @@ package main
 
 import (
 	"cache/eviction/iris"
-	"cache/eviction/lfu"
 	"cache/eviction/modifiedlru"
+	"cache/eviction/perfectlfu"
 )
 
 type CacheStorage struct {
 	// spectrumCache    *modifiedlru.CacheStorage
-	spectrumCache *lfu.CacheStorage // add
+	spectrumCache *perfectlfu.CacheStorage // add
 	mlruCache     *modifiedlru.CacheStorage
 	// arcCache         *arc.CacheStorage // add
 	serverSpectrum   uint64
@@ -28,7 +28,7 @@ func NewIrisCache(capacity int, spectrumRatio float64) iris.Accessor {
 	irisCache.spectrumCapacity = int(float64(capacity) * spectrumRatio)
 	irisCache.mlruCapacity = capacity - irisCache.spectrumCapacity
 	// irisCache.arcCapacity = capacity - irisCache.spectrumCapacity // add
-	irisCache.spectrumCache = lfu.New(irisCache.spectrumCapacity)
+	irisCache.spectrumCache = perfectlfu.New(irisCache.spectrumCapacity)
 	irisCache.mlruCache = modifiedlru.New(irisCache.mlruCapacity, 5) // jump = 5
 	// irisCache.arcCache = arc.New(irisCache.arcCapacity) // add
 	// fmt.Printf("Spectrum Capacity: %d\nModified LRU Capacity: %d\n", irisCache.spectrumCapacity, irisCache.mlruCapacity)

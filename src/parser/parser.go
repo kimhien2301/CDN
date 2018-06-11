@@ -12,7 +12,8 @@ type OptionModel struct {
 	Quiet                  bool
 	UseReferenceRanks      bool
 	GA                     bool // add
-	InsertNewContents      bool // add
+	InsertNewContents      int  // add
+	RealData               bool // add
 }
 
 var GA bool //add
@@ -33,8 +34,9 @@ func ParseArgs() *OptionModel {
 	flag.BoolVar(&Options.Quiet, "q", false, "suppress debug output.")
 	flag.BoolVar(&Options.UseReferenceRanks, "R", false, "use reference ranks instead of calculating sub-optimal separator ranks.")
 
-	flag.BoolVar(&Options.GA, "GA", false, "Using GA.")                          // add
-	flag.BoolVar(&Options.InsertNewContents, "I", false, "Insert new contents.") // add
+	flag.BoolVar(&Options.GA, "GA", false, "Using GA.")                     // add
+	flag.IntVar(&Options.InsertNewContents, "I", 0, "Insert new contents.") // add
+	flag.BoolVar(&Options.RealData, "D", false, "Use real data.")           // add
 
 	flag.Parse()
 	return Options

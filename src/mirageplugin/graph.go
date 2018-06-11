@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"graph"
 	"math/rand"
+	"parser"
 	"utils"
 )
 
@@ -133,7 +134,7 @@ func newNode(id string, entity interface{}) *Node_t {
 // }
 
 func (g *Graph_t) initSpectrums() {
-	g.spectrumManager = newSpectrumManager(4, g)
+	g.spectrumManager = newSpectrumManager(parser.Options.SpectrumBitSize, g)
 }
 
 func (g *Graph_t) initRouter() {

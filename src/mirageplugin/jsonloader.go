@@ -17,6 +17,7 @@ import (
 	"cache/eviction/lruk"
 	"cache/eviction/modifiedlru"
 	"cache/eviction/nocache"
+	"cache/eviction/perfectlfu"
 	"cache/eviction/random"
 	"cache/eviction/srrip"
 	"cache/eviction/windowlfu"
@@ -154,6 +155,8 @@ func (g *Graph_t) loadCacheServers(graphDecodeModel DecodeModel) {
 			storage = basiclru.New(int(params["Capacity"]), int(params["Jump"]))
 		case "arcmlru":
 			storage = arcmlru.New(int(params["Capacity"]), int(params["Jump"]), nodeModel.ID)
+		case "perfectlfu":
+			storage = perfectlfu.New(int(params["Capacity"]))
 		}
 		edgeServer.setStorage(storage)
 		edgeServer.setUpstreamRouter(g.router)

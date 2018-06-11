@@ -155,54 +155,52 @@ func (manager *SpectrumManager_t) separatorRanksID(separatorRanks []int) string 
 
 // TU modified code
 func (manager *SpectrumManager_t) BestSeparatorRanks(separatorRanks []int) []int {
-	/*N := manager.bitSize                                            // # colors
-	C := manager.network.clients[0].Upstream().Storage().Capacity() // cache server capacity
-	numUsrs := len(manager.network.clients)
-	numServers := len(manager.network.nodes)
-	numContents := manager.network.LibrarySize()
+	// N := manager.bitSize                                            // # colors
+	// C := manager.network.clients[0].Upstream().Storage().Capacity() // cache server capacity
+	// numUsrs := len(manager.network.clients)
+	// numServers := len(manager.network.nodes)
+	// numContents := manager.network.LibrarySize()
 
-	fmt.Println("\nnumUsrs numServers numContents")
-	fmt.Println(numUsrs)
-	fmt.Println(numServers)
-	fmt.Println(numContents)
+	// fmt.Println("\nnumUsrs numServers numContents")
+	// fmt.Println(numUsrs)
+	// fmt.Println(numServers)
+	// fmt.Println(numContents)
 
-	S := make([]int, 4)
-	S_prev := make([]int, 4)
-	var S_tmp []int
-	T_min := math.MaxFloat64
+	// S := make([]int, N)
+	// S_prev := make([]int, N)
+	// var S_tmp []int
+	// T_min := math.MaxFloat64
 
-	//fmt.Println(reflect.TypeOf(T_min))
+	// S[N-1] = N * C
+	// fmt.Println("Calculate separator ranks")
+	// fmt.Println(S)
+	// start := time.Now()
 
-	S[N-1] = N * C
-	fmt.Println("Calculate separator ranks")
-	fmt.Println(S)
-	start := time.Now()
+	// for isTwoArraysDiff(S, S_prev) {
+	// 	S_prev = getValues(S)
+	// 	for i := 0; i <= N-2; i++ {
+	// 		start_v := max(0, S[max(1, i)-1])
+	// 		end_v := min(S[i+1], N*C)
+	// 		for v := start_v; v <= end_v; v++ {
+	// 			S_tmp = getValues(S)
+	// 			S_tmp[i] = v
+	// 			S_tmp[N-1] = calculateTail(S_tmp, N, C)
+	// 			T_est := manager.estimate_traffic(S_tmp, numUsrs, numServers, numContents)
+	// 			if T_est < T_min {
+	// 				T_min = T_est
+	// 				S = getValues(S_tmp)
+	// 				fmt.Println(S)
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// t := time.Now()
+	// elapsed := t.Sub(start)
+	// fmt.Printf("%s ", "Elapsed time(s): ")
+	// fmt.Println(elapsed)
+	// fmt.Println(S)
+	// return S
 
-	for isTwoArraysDiff(S, S_prev) {
-		S_prev = getValues(S)
-		for i := 0; i <= N-2; i++ {
-			start_v := max(0, S[max(1, i)-1])
-			end_v := min(S[i+1], N*C)
-			for v := start_v; v <= end_v; v++ {
-				S_tmp = getValues(S)
-				S_tmp[i] = v
-				S_tmp[N-1] = calculateTail(S_tmp, N, C)
-				T_est := manager.estimate_traffic(S_tmp, numUsrs, numServers, numContents)
-				if T_est < T_min {
-					T_min = T_est
-					S = getValues(S_tmp)
-				}
-			}
-		}
-	}
-	t := time.Now()
-	elapsed := t.Sub(start)
-	fmt.Printf("%s ", "Elapsed time(s): ")
-	fmt.Println(elapsed)
-	fmt.Println(S)
-	return S
-	*/
-	// return make([]int, 0)
 	return []int{36, 42, 54, 268}
 }
 
@@ -256,7 +254,7 @@ func calculateTail(S []int, N, C int) int {
 func (manager *SpectrumManager_t) estimate_traffic(S_tmp []int, numUsrs, numServers, numContents int) float64 {
 
 	// traffic := 0.0
-	// routingTable :=est manager.network.router.(*Router_t).routingTable
+	// routingTable := est manager.network.router.(*Router_t).routingTable
 	// graph := manager.network
 
 	// dist := graph.clients[0].Dist()
@@ -418,6 +416,7 @@ func (manager *SpectrumManager_t) setServerSpectrums() {
 		}
 		manager.serverSpectrums[verticesDegrees[i].node] = selectedColor
 	}
+
 	// fmt.Println("\nServers' color")
 	// for _, node := range manager.network.nodes {
 	// 	fmt.Printf("%s %d\n", node.id, manager.serverSpectrums[node])
